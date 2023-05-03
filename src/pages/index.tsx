@@ -141,29 +141,6 @@ const Home: React.FC = () => {
         <div className="mx-auto max-w-2xl">
           {/* {remainingSpace} */}
           <div className="pb-4 sticky top-14 z-50 supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur">
-            <div className="mb-4">
-              <TooltipProvider>
-                <div className="mb-4">
-                  <Tooltip>
-                    <TooltipTrigger className="w-full">
-                      <Progress
-                        className="w-full"
-                        value={remainingStoragePercentage}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Your remaining storage:</p>
-
-                      <p className="text-center">
-                        <span className="font-bold">{remainingSpace}</span>{" "}
-                        bytes
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              </TooltipProvider>
-            </div>
-
             <div className="flex justify-between space-x-12 mb-4">
               <Select>
                 <SelectTrigger className="w-[300px]">
@@ -265,7 +242,7 @@ const Home: React.FC = () => {
                     </div>
 
                     <Trash2
-                      className="h-5 w-5 flex-none text-gray-400 cursor-pointer z-50"
+                      className="h-5 w-5 flex-none text-gray-400 cursor-pointer z-30"
                       onClick={() => deleteTextItem(textItem.id)}
                       aria-hidden="true"
                     />
@@ -273,6 +250,26 @@ const Home: React.FC = () => {
                 </li>
               </motion.li>
             ))}
+
+            <div className="mt-12">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="w-full mt-12">
+                    <Progress
+                      className="w-full"
+                      value={remainingStoragePercentage}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Your remaining storage:</p>
+
+                    <p className="text-center">
+                      <span className="font-bold">{remainingSpace}</span> bytes
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </ul>
         </div>
       </div>
