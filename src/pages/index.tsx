@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import Navbar from "@/components/navbar";
 
-export default function Home() {
-  const [inputText, setInputText] = useState("");
-  const [savedTexts, setSavedTexts] = useState([]);
+interface TextItem {
+  text: string;
+  id: number;
+}
+
+const Home: React.FC = () => {
+  const [inputText, setInputText] = useState<string>("");
+  const [savedTexts, setSavedTexts] = useState<TextItem[]>([]);
 
   useEffect(() => {
     const storedTexts = localStorage.getItem("texts");
@@ -12,12 +17,15 @@ export default function Home() {
     }
   }, []);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
 
-  const saveToLocalStorage = () => {
-    const newTexts = [...savedTexts, inputText];
+  const saveToLocalStorage = (event: MouseEvent<HTMLButtonElement>) => {
+    const newTexts: TextItem[] = [
+      ...savedTexts,
+      { text: inputText, id: new Date().getTime() },
+    ];
     localStorage.setItem("texts", JSON.stringify(newTexts));
     setSavedTexts(newTexts);
     setInputText("");
@@ -41,12 +49,14 @@ export default function Home() {
         <div>
           <h3>Saved texts:</h3>
           <ul>
-            {savedTexts.map((text, index) => (
-              <li key={index}>{text}</li>
+            {savedTexts.map((textItem) => (
+              <li key={textItem.id}>{textItem.text}</li>
             ))}
           </ul>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default Home;

@@ -7,13 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur">
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <a className="mr-6 flex items-center space-x-2" href="/">
+          <Link className="mr-6 flex items-center space-x-2" href="/">
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -26,7 +27,7 @@ export default function Navbar() {
               <circle cx="12" cy="12" r="10"></circle>
             </svg>
             <span className="hidden font-bold sm:inline-block">Bookmarks</span>
-          </a>
+          </Link>
 
           <Select>
             <SelectTrigger className="w-[180px]">
