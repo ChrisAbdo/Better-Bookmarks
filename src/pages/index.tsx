@@ -7,6 +7,8 @@ import { ChevronRight, Plus } from "lucide-react";
 interface TextItem {
   text: string;
   id: number;
+  title?: string;
+  faviconUrl?: string;
 }
 
 const Home: React.FC = () => {
@@ -26,12 +28,30 @@ const Home: React.FC = () => {
     setInputText(event.target.value);
   };
 
-  const saveToLocalStorage = (event: React.SyntheticEvent) => {
+  const fetchUrlData = async (url: string) => {
+    try {
+      const response = await fetch(
+        `https://api.linkpreview.net/?key=995f40c79303388b4491aa10df075734&q=${encodeURIComponent(
+          url
+        )}`
+      );
+      const data = await response.json();
+      console.log("URL data:", data);
+      return { title: data.title, faviconUrl: data.image }; // Change this line
+    } catch (error) {
+      console.error("Error fetching URL data:", error);
+      return { title: "", faviconUrl: "" };
+    }
+  };
+
+  const saveToLocalStorage = async (event: React.SyntheticEvent) => {
     if (inputText === "") return;
+
+    const { title, faviconUrl } = await fetchUrlData(inputText);
 
     const newTexts: TextItem[] = [
       ...savedTexts,
-      { text: inputText, id: new Date().getTime() },
+      { text: inputText, id: new Date().getTime(), title, faviconUrl },
     ];
     localStorage.setItem("texts", JSON.stringify(newTexts));
     setSavedTexts(newTexts);
@@ -107,18 +127,18 @@ const Home: React.FC = () => {
                 <div className="flex gap-x-4">
                   <img
                     className="h-12 w-12 flex-none rounded-md bg-gray-50"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src={textItem.faviconUrl}
                     alt=""
                   />
                   <div className="min-w-0 flex-auto">
                     <div className="text-sm font-semibold leading-6 text-gray-900">
                       <p>
                         <span className="absolute inset-x-0 -top-px bottom-0" />
-                        {textItem.text}
+                        {textItem.title}
                       </p>
                     </div>
                     <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                      <span className="relative truncate hover:underline">
+                      <span className="relative truncate max-w-sm hover:underline">
                         {textItem.text}
                       </span>
                     </p>
@@ -126,11 +146,9 @@ const Home: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-x-4">
                   <div className="hidden sm:flex sm:flex-col sm:items-end">
-                    <p className="text-sm leading-6 text-gray-900">
-                      {textItem.text}
-                    </p>
+                    <p className="text-sm leading-6 text-gray-900">yo</p>
                     <p className="mt-1 text-xs leading-5 text-gray-500">
-                      Created at <time>May 3, 2023</time>
+                      Created <time>May 3, 2023</time>
                     </p>
                   </div>
                   <ChevronRight
