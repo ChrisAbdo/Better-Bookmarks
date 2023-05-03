@@ -1,12 +1,9 @@
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Library } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -14,35 +11,31 @@ export default function Navbar() {
     <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link className="mr-6 flex items-center space-x-2" href="/">
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-6 w-6"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-            </svg>
-            <span className="hidden font-bold sm:inline-block">Bookmarks</span>
-          </Link>
-
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <div className="mr-6 flex items-center space-x-2">
+            <HoverCard>
+              <HoverCardTrigger className="flex items-center cursor-default space-x-2">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-6 w-6"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                </svg>
+                <span className="flex font-bold">
+                  Bookmarks <Library className="ml-2" />
+                </span>
+              </HoverCardTrigger>
+              <HoverCardContent>
+                Built by Chris Abdo.
+                <br />
+                Original idea by Rauno Freiberg.
+              </HoverCardContent>
+            </HoverCard>
+          </div>
         </div>
         <button
           className="inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none ring-offset-background hover:text-accent-foreground h-10 py-2 mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
