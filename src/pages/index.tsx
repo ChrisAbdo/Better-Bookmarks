@@ -26,7 +26,7 @@ const Home: React.FC = () => {
     setInputText(event.target.value);
   };
 
-  const saveToLocalStorage = (event: MouseEvent<HTMLButtonElement>) => {
+  const saveToLocalStorage = (event: React.SyntheticEvent) => {
     if (inputText === "") return;
 
     const newTexts: TextItem[] = [
@@ -54,7 +54,10 @@ const Home: React.FC = () => {
 
     for (let key in localStorage) {
       if (localStorage.hasOwnProperty(key)) {
-        usedStorage += localStorage.getItem(key).length * 2;
+        const item = localStorage.getItem(key);
+        if (item) {
+          usedStorage += item.length * 2;
+        }
       }
     }
 
