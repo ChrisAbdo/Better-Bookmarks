@@ -22,6 +22,8 @@ const Home: React.FC = () => {
   };
 
   const saveToLocalStorage = (event: MouseEvent<HTMLButtonElement>) => {
+    if (inputText === "") return; // Don't save empty strings
+
     const newTexts: TextItem[] = [
       ...savedTexts,
       { text: inputText, id: new Date().getTime() },
