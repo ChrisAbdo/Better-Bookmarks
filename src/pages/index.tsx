@@ -182,7 +182,7 @@ const Home: React.FC = () => {
             <Separator />
           </div>
 
-          <ul role="list" className="space-y-2">
+          <ul role="list" className="space-y-2 mb-24">
             {savedTexts.map((textItem, index) => (
               <motion.li
                 key={textItem.id}
@@ -251,24 +251,27 @@ const Home: React.FC = () => {
               </motion.li>
             ))}
 
-            <div className="mt-12">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="w-full mt-12">
-                    <Progress
-                      className="w-full"
-                      value={remainingStoragePercentage}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Your remaining storage:</p>
+            <div className="fixed bottom-0 left-0 right-0 supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur p-4 z-50">
+              <div className="mx-auto max-w-2xl">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger className="w-full">
+                      <Progress
+                        className="w-full"
+                        value={remainingStoragePercentage}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Your remaining storage:</p>
 
-                    <p className="text-center">
-                      <span className="font-bold">{remainingSpace}</span> bytes
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                      <p className="text-center">
+                        <span className="font-bold">{remainingSpace}</span>{" "}
+                        bytes
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
             </div>
           </ul>
         </div>
